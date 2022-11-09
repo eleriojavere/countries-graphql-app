@@ -6,4 +6,9 @@
   padding: 8px 14px;
   border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
+  text-transform: capitalize;
+  &:active {
+    transform: scale(0.9);
+  }
 }

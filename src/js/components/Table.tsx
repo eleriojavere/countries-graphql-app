@@ -1,16 +1,12 @@
-import { useCountries } from "../../App";
+import { Country } from "../hooks/useCountries";
 
-export default function Table() {
-  const { data } = useCountries();
-
-  if (!data) return <div>No data</div>;
-
+export default function Table({ data }: { data: Country[] }) {
   return (
     <table className="table-container">
       <tbody>
-        {data.countries.map((country, key) => {
+        {data.map((country, key) => {
           return (
-            <tr key={`${country}-${key}`}>
+            <tr key={`${country}-${key}`} className="table-row">
               <td>{country.name}</td>
               <td>{country.code}</td>
             </tr>
