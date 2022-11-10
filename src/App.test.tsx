@@ -13,9 +13,10 @@ setLogger({
   warn: console.warn,
   error: () => {},
 });
-function useCountriesMock() {
+
+const useCountriesMock = () => {
   return useQuery({ queryKey: ["useCountries"], queryFn: () => {} });
-}
+};
 
 export const renderApp = (client: QueryClient) => {
   return render(
