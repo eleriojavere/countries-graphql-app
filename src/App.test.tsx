@@ -1,12 +1,18 @@
 import React from "react";
 import { render, renderHook, screen, waitFor } from "@testing-library/react";
 import App from "./App";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  setLogger,
+  useQuery,
+} from "react-query";
 
-beforeEach(() => {
-  console.error = jest.fn();
+setLogger({
+  log: console.log,
+  warn: console.warn,
+  error: () => {},
 });
-
 function useCountriesMock() {
   return useQuery({ queryKey: ["useCountries"], queryFn: () => {} });
 }
