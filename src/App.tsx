@@ -1,46 +1,49 @@
 import Table from "./js/components/Table";
-import PrimaryButton from "./js/components/PrimaryButton";
 import { FormEvent, useState } from "react";
 import { Country, useCountries } from "./js/hooks/useCountries";
 import Input from "./js/components/Input";
 
 function App() {
   const { data, isLoading, error } = useCountries();
-  const [inputValue, setInputValue] = useState<string>("");
   const [filteredData, setFilteredData] = useState<Country[] | null>(null);
-
-  if (!data && !isLoading) return <div>No data to show</div>;
-
-  if (isLoading) return <div>Loading...</div>;
 
   if (error instanceof Error) {
     return (
-      <div className="error-message">
+      <div className="text-red-700">
         Problem fetching countries: {error.message}
       </div>
     );
   }
 
-  const filterResults = () => {
+  if (!data && !isLoading) return <div>No data to show</div>;
+
+  if (isLoading)
+    return (
+      <div className="w-full mt-14 flex text-blue-700 text-2xl font-bold justify-center h-screen">
+        Loading...
+      </div>
+    );
+
+  const filterResults = (value: string) => {
     const filteredCountries = data.countries.filter(({ code }) =>
-      code.toLowerCase().includes(inputValue.toLowerCase())
+      code.toLowerCase().includes(value.toLowerCase())
     );
 
     setFilteredData(filteredCountries);
-    setInputValue("");
   };
+
   return (
-    <main className="max-width-wrapper">
-      <h3> Filter results by country code:</h3>
+    <main className="max-w-7xl ml-auto mr-auto pl-7 pr-7">
+      <h3 className="text-xl font-bold mt-4 mb-4 text-blue-700">
+        Filter results by country code:
+      </h3>
       <Input
-        value={inputValue}
-        changeInputValue={(e: React.FormEvent<HTMLInputElement>) =>
-          setInputValue(e.currentTarget.value)
+        changeInputValue={(e: FormEvent<HTMLInputElement>) =>
+          filterResults(e.currentTarget.value)
         }
       />
-      <PrimaryButton onClick={filterResults} />
 
-      <Table data={filteredData != null ? filteredData : data.countries} />
+      <Table data={filteredData ?? data.countries} />
     </main>
   );
 }
