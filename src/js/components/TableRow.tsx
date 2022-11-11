@@ -1,8 +1,8 @@
 export default function TableRow() {
   return (
-    <tr className="table-row">
-      <th>Country name</th>
-      <th>Country code</th>
+    <tr className="text-left">
+      <th className="p-3.5">Country name</th>
+      <th className="p-3.5">Country code</th>
     </tr>
   );
 }

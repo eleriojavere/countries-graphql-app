@@ -1,4 +1,3 @@
-import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
@@ -83,7 +82,7 @@ test("Display no data message when data is undefined", () => {
   expect(element).toBeInTheDocument();
 });
 
-test("Display only countries with country code the user has searched for", async () => {
+test("Display only countries with country code the user has searched for", () => {
   // @ts-ignore
   useCountries.mockImplementation(() => ({
     data: {
@@ -99,13 +98,13 @@ test("Display only countries with country code the user has searched for", async
   }));
 
   renderApp();
+
   const input = screen.getByLabelText("input");
   fireEvent.change(input, { target: { value: "a" } });
 
   const tableRowElements = screen.getAllByRole("row");
 
   expect(tableRowElements).toHaveLength(2);
-
   expect(screen.getByText("Ukraine")).toBeInTheDocument();
   expect(screen.queryByText("Estonia")).toBeNull();
   expect(screen.queryByText("Finland")).toBeNull();
