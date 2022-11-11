@@ -1,3 +1,11 @@
+# Countries app
+
+Generate .env file from .env.example example file and add REACT_APP_API_URL variable value. Example is using `https://countries.trevorblades.com/` as an API url to fetch countries.
+
+# Developer notes
+
+With more time this project could be improved by end-to-end tests with Cypress. Also using Mock Service Workers using `https://www.npmjs.com/package/msw` would make the mocking seamless.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
