@@ -50,7 +50,7 @@ test("Displays countries when there is data", () => {
 
   renderApp();
 
-  const tableRowElements = screen.getAllByRole("row");
+  const tableRowElements = screen.getAllByLabelText("data-row");
   expect(tableRowElements).toHaveLength(2);
 });
 
@@ -100,11 +100,12 @@ test("Display only countries with country code the user has searched for", () =>
   renderApp();
 
   const input = screen.getByLabelText("input");
+
   fireEvent.change(input, { target: { value: "a" } });
 
-  const tableRowElements = screen.getAllByRole("row");
-
+  const tableRowElements = screen.getAllByLabelText("data-row");
   expect(tableRowElements).toHaveLength(2);
+
   expect(screen.getByText("Ukraine")).toBeInTheDocument();
   expect(screen.queryByText("Estonia")).toBeNull();
   expect(screen.queryByText("Finland")).toBeNull();
